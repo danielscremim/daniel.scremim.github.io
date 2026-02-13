@@ -2,14 +2,14 @@ import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/
 import { Line, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
-  name: `Selene Yu`,
-  role: "Design Engineer",
+  firstName: "Daniel",
+  lastName: "Scremim",
+  name: `Daniel Scremim`,
+  role: "Desenvolvedor Full Stack",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  email: "danielsouzascremim@hotmail.com",
+  location: "America/Sao_Paulo", 
+  languages: ["Português", "Inglês"], 
 };
 
 const newsletter: Newsletter = {
@@ -19,32 +19,30 @@ const newsletter: Newsletter = {
 };
 
 const social: Social = [
-  // Links are automatically displayed.
-  // Import new icons in /once-ui/icons.ts
-  // Set essentials: true for links you want to show on the about page
+
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/once-ui-system",
+    link: "https://github.com/danielscremim",
     essential: true,
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
+    link: "https://www.linkedin.com/in/danielscremim/",
     essential: true,
   },
   {
     name: "Instagram",
     icon: "instagram",
-    link: "https://www.instagram.com/once_ui/",
+    link: "https://www.instagram.com/danielscremim/",
     essential: false,
   },
   {
     name: "Threads",
     icon: "threads",
-    link: "https://www.threads.com/@once_ui",
-    essential: true,
+    link: "https://www.threads.com/@danielscremim",
+    essential: false,
   },
   {
     name: "Email",
@@ -60,15 +58,15 @@ const home: Home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  headline: <>Transformando ideias em código</>,
   featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">Once UI</strong>{" "}
+        <strong className="ml-4">Projetos</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
-          Featured work
+          Trabalhos em destaque
         </Text>
       </Row>
     ),
@@ -76,7 +74,7 @@ const home: Home = {
   },
   subline: (
     <>
-    I'm Selene, a design engineer at <Text as="span" size="xl" weight="strong">ONCE UI</Text>, where I craft intuitive <br /> user experiences. After hours, I build my own projects.
+    Sou Daniel, desenvolvedor full stack especializado em <Text as="span" size="xl" weight="strong">React, Next.js e Node.js</Text>. <br /> Apaixonado por criar soluções digitais inovadoras e eficientes.
 </>
   ),
 };
@@ -99,55 +97,55 @@ const about: About = {
   },
   intro: {
     display: true,
-    title: "Introduction",
+    title: "Introdução",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        Daniel é um desenvolvedor full stack brasileiro com paixão por transformar desafios complexos
+        em soluções elegantes e funcionais. Seu trabalho abrange desenvolvimento web, aplicações mobile,
+        e a criação de experiências digitais que fazem a diferença.
       </>
     ),
   },
   work: {
     display: true, // set to false to hide this section
-    title: "Work Experience",
+    title: "Experiência Profissional",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "Freelancer",
+        timeframe: "2022 - Presente",
+        role: "Desenvolvedor Full Stack",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Desenvolvimento de aplicações web modernas usando React, Next.js e TypeScript,
+            entregando soluções de alta qualidade para clientes diversos.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Implementação de APIs RESTful e integração com serviços de terceiros,
+            melhorando a eficiência e escalabilidade dos projetos.
           </>,
         ],
         images: [
           // optional: leave the array empty if you don't want to display images
           {
             src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
+            alt: "Projeto",
             width: 16,
             height: 9,
           },
         ],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "Projetos Pessoais",
+        timeframe: "2020 - Presente",
+        role: "Desenvolvedor",
         achievements: [
           <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            Criação de portfólios, landing pages e aplicações web completas,
+            utilizando as melhores práticas de desenvolvimento.
           </>,
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
+            Exploração de novas tecnologias e frameworks para manter-se atualizado
+            com as tendências do mercado.
           </>,
         ],
         images: [],
@@ -156,26 +154,26 @@ const about: About = {
   },
   studies: {
     display: true, // set to false to hide this section
-    title: "Studies",
+    title: "Formação",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "Formação em Desenvolvimento Web",
+        description: <>Estudos focados em desenvolvimento full stack, incluindo React, Node.js e bancos de dados.</>,
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "Cursos e Certificações",
+        description: <>Aprendizado contínuo através de plataformas online e certificações em tecnologias modernas.</>,
       },
     ],
   },
   technical: {
     display: true, // set to false to hide this section
-    title: "Technical skills",
+    title: "Habilidades Técnicas",
     skills: [
       {
-        title: "Figma",
+        title: "React & Next.js",
         description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
+          <>Desenvolvimento de aplicações web modernas e performáticas usando React e Next.js.</>
         ),
         tags: [
           {
@@ -200,9 +198,9 @@ const about: About = {
         ],
       },
       {
-        title: "Next.js",
+        title: "Node.js & APIs",
         description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
+          <>Criação de APIs RESTful robustas e integração com diversos serviços e bancos de dados.</>
         ),
         tags: [
           {
@@ -235,26 +233,26 @@ const about: About = {
 const blog: Blog = {
   path: "/blog",
   label: "Blog",
-  title: "Writing about design and tech...",
-  description: `Read what ${person.name} has been up to recently`,
+  title: "Escrevendo sobre desenvolvimento e tecnologia...",
+  description: `Acompanhe as novidades de ${person.name}`,
   // Create new blog posts by adding a new .mdx file to app/blog/posts
   // All posts will be listed on the /blog route
 };
 
 const work: Work = {
   path: "/work",
-  label: "Work",
-  title: `Projects – ${person.name}`,
-  description: `Design and dev projects by ${person.name}`,
+  label: "Projetos",
+  title: `Projetos – ${person.name}`,
+  description: `Projetos de desenvolvimento por ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/blog/posts
   // All projects will be listed on the /home and /work routes
 };
 
 const gallery: Gallery = {
   path: "/gallery",
-  label: "Gallery",
-  title: `Photo gallery – ${person.name}`,
-  description: `A photo collection by ${person.name}`,
+  label: "Galeria",
+  title: `Galeria – ${person.name}`,
+  description: `Coleção de fotos por ${person.name}`,
   // Images by https://lorant.one
   // These are placeholder images, replace with your own
   images: [
