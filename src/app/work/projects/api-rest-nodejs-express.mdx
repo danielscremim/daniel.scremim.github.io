@@ -1,0 +1,97 @@
+---
+title: "API RESTful com Node.js, Express e PostgreSQL"
+publishedAt: "2024-03-10"
+summary: "API REST de produção construída com Node.js, Express, TypeScript, Prisma ORM e PostgreSQL. Inclui autenticação JWT com refresh tokens, rate limiting, documentação Swagger e suite de testes completa."
+tag: "Backend"
+images:
+  - "/images/projects/project-01/cover-04.jpg"
+  - "/images/projects/project-01/cover-01.jpg"
+team:
+  - name: "Daniel Scremim"
+    role: "Backend Developer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/danielscremim/"
+link: "https://github.com/danielscremim/nodejs-rest-api-template"
+---
+
+## Visão Geral
+
+Template de API REST pronto para produção, construído com as melhores práticas de engenharia de software. O projeto serve como boilerplate para novas aplicações Node.js, eliminando a configuração repetitiva de autenticação, validação, logging e testes que todo projeto precisa.
+
+É utilizado como base em projetos cliente e foi aberto como template no GitHub para a comunidade, acumulando mais de 200 stars.
+
+## Funcionalidades Principais
+
+- **Autenticação Completa**: Registro, login, verificação de e-mail, recuperação de senha, refresh token com rotação automática e revogação
+- **Autorização por Roles**: Sistema de permissões granular com roles (ADMIN, USER, MODERATOR) e guards declarativos
+- **CRUD Genérico**: Repositórios reutilizáveis com paginação cursor-based, filtros dinâmicos e ordenação múltipla
+- **Validação**: Schemas Zod em todas as rotas com mensagens de erro padronizadas e internacionalizadas
+- **Rate Limiting**: Limitação por IP e por usuário usando sliding window com Redis
+- **Upload de Arquivos**: Suporte a upload de imagens com redimensionamento automático (Sharp) e armazenamento em S3-compatible (MinIO/Cloudflare R2)
+- **E-mails Transacionais**: Envio via Resend com templates React Email para confirmação, senha e notificações
+- **Logs Estruturados**: Winston com transports configuráveis (console em dev, arquivo + Datadog em produção)
+- **Documentação**: Swagger/OpenAPI gerado automaticamente via decorators do código
+- **Saúde da API**: Endpoint `/health` com verificação de banco, Redis e serviços externos
+
+## Tecnologias Utilizadas
+
+- **Node.js 20** com ES Modules
+- **Express.js** com tipagem via `express-serve-static-core`
+- **TypeScript 5** com modo strict e path aliases
+- **Prisma ORM** com PostgreSQL para acesso a dados type-safe
+- **Redis** (Upstash) para cache, sessões e rate limiting
+- **Zod** para validação e inferência de tipos de schema
+- **JWT** (jsonwebtoken) com par de chaves RSA para autenticação
+- **Jest** + **Supertest** para testes de integração com banco de dados in-memory
+- **Docker Compose** para ambiente de desenvolvimento local
+- **GitHub Actions** para CI/CD com execução de testes e deploy no Railway
+
+## Estrutura do Projeto
+
+```
+src/
+├── config/         # Variáveis de ambiente com validação Zod
+├── modules/        # Features isoladas (users, auth, products...)
+│   └── auth/
+│       ├── auth.controller.ts
+│       ├── auth.service.ts
+│       ├── auth.repository.ts
+│       ├── auth.schema.ts    # Validação Zod
+│       └── auth.routes.ts
+├── shared/
+│   ├── middlewares/  # Auth, error handler, rate limit
+│   ├── utils/        # Helpers, crypto, date
+│   └── database/     # Prisma client singleton
+└── server.ts
+```
+
+A arquitetura segue princípios de **Clean Architecture** com separação clara entre Controller (HTTP), Service (regras de negócio) e Repository (acesso a dados), tornando cada camada testável de forma independente.
+
+## Segurança
+
+- Senhas com bcrypt (custo 12)
+- Headers de segurança com Helmet.js
+- Proteção CSRF para rotas que modificam estado
+- Sanitização de inputs para prevenção de SQL Injection (Prisma parameterized queries)
+- Correlação de requests com UUID para rastreamento de erros
+- Secrets rotacionados automaticamente com suporte a múltiplas chaves ativas (key versioning)
+
+## Testes
+
+```bash
+# 147 testes, 94% de cobertura
+npm run test
+
+# Testes de integração com banco real (Docker)
+npm run test:integration
+
+# Relatório de cobertura
+npm run test:coverage
+```
+
+## Resultados
+
+- **p99 de latência** em 45ms para endpoints CRUD simples
+- **147 testes** com **94% de cobertura** de código
+- Deploy em Railway com **auto-scaling** e zero-downtime deploys
+- Utilizado como base em **5 projetos cliente** distintos

@@ -1,0 +1,100 @@
+---
+title: "Microsserviço de Autenticação com NestJS e Redis"
+publishedAt: "2024-11-02"
+summary: "Microsserviço standalone de autenticação e autorização construído com NestJS, Prisma, Redis e Docker, com suporte a OAuth2 (GitHub, Google), MFA via TOTP e integração via mensageria com RabbitMQ."
+tag: "Backend"
+images:
+  - "/images/projects/project-01/cover-02.jpg"
+  - "/images/projects/project-01/cover-04.jpg"
+team:
+  - name: "Daniel Scremim"
+    role: "Backend Developer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/danielscremim/"
+link: "https://github.com/danielscremim/auth-microservice-nestjs"
+---
+
+## Visão Geral
+
+Microsserviço de autenticação e gerenciamento de identidade desenvolvido como serviço independente, projetado para ser consumido por múltiplas aplicações de uma mesma organização via mensageria (RabbitMQ) ou HTTP.
+
+O projeto nasceu da necessidade de centralizar autenticação em um ambiente com múltiplos serviços backend, evitando duplicação de código de auth em cada microsserviço e padronizando a gestão de sessões, tokens e auditoria de acesso.
+
+## Funcionalidades Principais
+
+- **Autenticação local**: E-mail/senha com hash bcrypt, bloqueio por tentativas falhas e CAPTCHA
+- **OAuth2 Social**: Login com GitHub e Google via Passport.js, link e desvinculação de provedores por conta
+- **MFA / 2FA**: Autenticação multifator via TOTP (Google Authenticator, Authy) com códigos de backup
+- **Refresh Token Rotation**: Tokens de curta duração (15min) com refresh assíncrono e detecção de reutilização (reuse detection)
+- **Sessões**: Gerenciamento de sessões ativas por usuário com metadados de dispositivo/IP e encerramento remoto
+- **Auditoria**: Log de todos os eventos de autenticação (login, logout, falha, MFA) com timestamp e IP
+- **Webhook de Eventos**: Notificação de sistemas externos sobre eventos de auth via webhooks configuráveis
+- **Admin API**: Endpoints internos para listagem de usuários, bloqueio, impersonation e análise de sessões
+
+## Tecnologias Utilizadas
+
+- **NestJS 10** como framework principal com arquitetura modular
+- **Prisma ORM** com PostgreSQL para persistência de usuários, sessões e tokens
+- **Redis** (Redis Stack) para armazenamento de refresh tokens, blacklist de tokens revogados e rate limiting distribuído
+- **Passport.js** com estratégias Local, JWT, GitHub OAuth2 e Google OAuth2
+- **RabbitMQ** via `@nestjs/microservices` para comunicação assíncrona com outros serviços
+- **Speakeasy** para geração e validação de tokens TOTP
+- **class-validator** + **class-transformer** para validação e transformação de DTOs
+- **Swagger** (OpenAPI 3.0) gerado automaticamente via decorators NestJS
+- **Docker Compose** com todos os serviços (Postgres, Redis, RabbitMQ) configurados
+- **Prometheus** + **Grafana** para métricas de autenticação (login rate, falhas, latência)
+
+## Arquitetura de Comunicação
+
+```
+                    ┌─────────────────┐
+   HTTP/REST ──────►│  Auth Service   │◄────── Admin API
+                    │   (NestJS)      │
+   RabbitMQ ───────►│                 │───────► Eventos (user.created,
+                    └────────┬────────┘         session.revoked, mfa.enabled)
+                             │
+              ┌──────────────┼──────────────┐
+              ▼              ▼              ▼
+         PostgreSQL        Redis        RabbitMQ
+         (usuários,      (tokens,      (eventos
+          sessões)        cache,        outbound)
+                         rate limit)
+```
+
+Outros microsserviços validam tokens JWT localmente com a chave pública do auth service, **sem nenhuma chamada de rede** para verificação de token — apenas em casos de logout ou revogação é feita uma consulta ao Redis para verificar blacklist.
+
+## Segurança Implementada
+
+- **Refresh token hashing**: Tokens armazenados com SHA-256, nunca em texto plano
+- **Token fingerprinting**: Binding do refresh token ao User-Agent e IP para detecção de roubo
+- **Timing-safe comparison**: Comparação de tokens com `crypto.timingSafeEqual` para prevenir timing attacks
+- **Account lockout**: Bloqueio progressivo após falhas consecutivas com backoff exponencial
+- **Event sourcing parcial**: Todos os eventos de auth são imutáveis e auditáveis
+
+## Deploy e Observabilidade
+
+```yaml
+# docker-compose.yml resumido
+services:
+  auth-service:
+    image: auth-service:latest
+    environment:
+      - JWT_PRIVATE_KEY_PATH=/secrets/jwt.key
+      - REDIS_URL=redis://redis:6379
+    deploy:
+      replicas: 3
+      update_config:
+        order: rolling
+```
+
+Métricas expostas via `/metrics` (Prometheus format):
+- `auth_login_total` — total de logins por estratégia e resultado
+- `auth_token_validation_duration_ms` — latência de validação de JWT
+- `auth_active_sessions` — sessões ativas por tenant
+
+## Resultados
+
+- **p95 de latência** em 12ms para validação de JWT (operação mais frequente)
+- **Zero vulnerabilidades** críticas/altas no Trivy scan da imagem Docker
+- Suporta **10.000 req/s** de validação de token em instância única (benchmark com k6)
+- Em produção como serviço centralizado para **3 aplicações** distintas

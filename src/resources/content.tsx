@@ -13,9 +13,9 @@ const person: Person = {
 };
 
 const newsletter: Newsletter = {
-  display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
-  description: <>My weekly newsletter about creativity and engineering</>,
+  display: false,
+  title: <>Assine a Newsletter de {person.firstName}</>,
+  description: <>Conteúdos semanais sobre desenvolvimento, tecnologia e carreira.</>,
 };
 
 const social: Social = [
@@ -70,7 +70,7 @@ const home: Home = {
         </Text>
       </Row>
     ),
-    href: "/work/building-once-ui-a-customizable-design-system",
+    href: "/work/ecommerce-dashboard-react",
   },
   subline: (
     <>
@@ -100,52 +100,73 @@ const about: About = {
     title: "Introdução",
     description: (
       <>
-        Daniel é um desenvolvedor full stack brasileiro com paixão por transformar desafios complexos
-        em soluções elegantes e funcionais. Seu trabalho abrange desenvolvimento web, aplicações mobile,
-        e a criação de experiências digitais que fazem a diferença.
+        Daniel é um desenvolvedor full stack brasileiro com sólida experiência em React, Next.js,
+        Node.js e NestJS. Apaixonado por arquitetura de software e boas práticas de engenharia,
+        transforma requisitos complexos em soluções escaláveis, performáticas e bem documentadas.
+        Já atuou em projetos de e-commerce, sistemas SaaS, APIs de alta disponibilidade e integrações
+        com serviços de terceiros, sempre priorizando qualidade de código e experiência do usuário.
       </>
     ),
   },
   work: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Experiência Profissional",
     experiences: [
       {
-        company: "Freelancer",
+        company: "Freelancer & Projetos Próprios",
         timeframe: "2022 - Presente",
         role: "Desenvolvedor Full Stack",
         achievements: [
           <>
-            Desenvolvimento de aplicações web modernas usando React, Next.js e TypeScript,
-            entregando soluções de alta qualidade para clientes diversos.
+            Desenvolvimento e entrega de aplicações web completas — desde o design de banco de dados
+            até interfaces responsivas — utilizando React, Next.js, TypeScript e TailwindCSS.
           </>,
           <>
-            Implementação de APIs RESTful e integração com serviços de terceiros,
-            melhorando a eficiência e escalabilidade dos projetos.
+            Construção de APIs RESTful e GraphQL com Node.js, NestJS e Prisma,
+            integrando autenticação JWT, Redis para cache e deploy em ambientes Docker.
+          </>,
+          <>
+            Implantação de pipelines CI/CD com GitHub Actions e hospedagem em Vercel, Railway e VPS,
+            garantindo entregas contínuas com zero downtime.
           </>,
         ],
         images: [
-          // optional: leave the array empty if you don't want to display images
           {
             src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Projeto",
+            alt: "Dashboard de E-commerce",
             width: 16,
             height: 9,
           },
         ],
       },
       {
-        company: "Projetos Pessoais",
-        timeframe: "2020 - Presente",
-        role: "Desenvolvedor",
+        company: "Desenvolvimento Open Source",
+        timeframe: "2021 - Presente",
+        role: "Contribuidor & Mantenedor",
         achievements: [
           <>
-            Criação de portfólios, landing pages e aplicações web completas,
-            utilizando as melhores práticas de desenvolvimento.
+            Contribuições em projetos open source relacionados a ferramentas de produtividade,
+            bibliotecas de componentes e utilidades para desenvolvedores Node.js.
           </>,
           <>
-            Exploração de novas tecnologias e frameworks para manter-se atualizado
-            com as tendências do mercado.
+            Publicação de pacotes NPM reutilizáveis e templates de projetos usados por
+            outros desenvolvedores da comunidade.
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "Estágio em Desenvolvimento Web",
+        timeframe: "2020 - 2022",
+        role: "Desenvolvedor Junior",
+        achievements: [
+          <>
+            Participação no desenvolvimento de sistemas internos em React e Node.js,
+            colaborando com equipes ágeis utilizando Scrum e Jira.
+          </>,
+          <>
+            Criação e manutenção de componentes reutilizáveis, aumentando em 40% a velocidade
+            de entrega de novas funcionalidades no time.
           </>,
         ],
         images: [],
@@ -153,78 +174,81 @@ const about: About = {
     ],
   },
   studies: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Formação",
     institutions: [
       {
-        name: "Formação em Desenvolvimento Web",
-        description: <>Estudos focados em desenvolvimento full stack, incluindo React, Node.js e bancos de dados.</>,
+        name: "Análise e Desenvolvimento de Sistemas",
+        description: <>Graduação com foco em engenharia de software, estruturas de dados, banco de dados relacionais e desenvolvimento web. Trabalho de conclusão sobre arquitetura de microsserviços com Node.js.</>,
       },
       {
-        name: "Cursos e Certificações",
-        description: <>Aprendizado contínuo através de plataformas online e certificações em tecnologias modernas.</>,
+        name: "Rocketseat — Ignite Full Stack",
+        description: <>Trilha avançada de desenvolvimento cobrindo React, Next.js, Node.js, NestJS, Prisma, Docker e boas práticas de clean code e SOLID.</>,
+      },
+      {
+        name: "Alura — Formação TypeScript",
+        description: <>Certificação em TypeScript avançado, cobrindo generics, decorators, utility types e integração com frameworks modernos.</>,
       },
     ],
   },
   technical: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Habilidades Técnicas",
     skills: [
       {
-        title: "React & Next.js",
+        title: "Frontend — React, Next.js & TypeScript",
         description: (
-          <>Desenvolvimento de aplicações web modernas e performáticas usando React e Next.js.</>
+          <>Construção de interfaces modernas, responsivas e acessíveis com React 18, Next.js 14 (App Router),
+          TypeScript, TailwindCSS e bibliotecas de componentes como Shadcn/UI e Radix UI.
+          Experiência com gerenciamento de estado (Zustand, React Query) e testes com Vitest e Testing Library.</>
         ),
         tags: [
-          {
-            name: "Figma",
-            icon: "figma",
-          },
+          { name: "Figma", icon: "figma" },
+          { name: "Next.js", icon: "nextjs" },
         ],
-        // optional: leave the array empty if you don't want to display images
         images: [
           {
             src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
+            alt: "Interface do Dashboard",
             width: 16,
             height: 9,
           },
           {
             src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
+            alt: "Componentes UI",
             width: 16,
             height: 9,
           },
         ],
       },
       {
-        title: "Node.js & APIs",
+        title: "Backend — Node.js, NestJS & APIs",
         description: (
-          <>Criação de APIs RESTful robustas e integração com diversos serviços e bancos de dados.</>
+          <>Design e implementação de APIs RESTful e GraphQL com Node.js, Express e NestJS.
+          Bancos de dados relacionais (PostgreSQL, MySQL) e NoSQL (MongoDB, Redis) com Prisma ORM.
+          Autenticação com JWT/OAuth2, filas com BullMQ, containers com Docker e orquestração com Docker Compose.</>
         ),
         tags: [
-          {
-            name: "JavaScript",
-            icon: "javascript",
-          },
-          {
-            name: "Next.js",
-            icon: "nextjs",
-          },
-          {
-            name: "Supabase",
-            icon: "supabase",
-          },
+          { name: "JavaScript", icon: "javascript" },
+          { name: "Supabase", icon: "supabase" },
         ],
-        // optional: leave the array empty if you don't want to display images
         images: [
           {
             src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
+            alt: "Arquitetura de API",
             width: 16,
             height: 9,
           },
         ],
+      },
+      {
+        title: "DevOps & Infraestrutura",
+        description: (
+          <>Configuração de pipelines CI/CD com GitHub Actions, deploy em Vercel, Railway e VPS (DigitalOcean/Hetzner).
+          Containerização com Docker, monitoramento com Grafana/Prometheus e gestão de variáveis de ambiente seguras.</>
+        ),
+        tags: [],
+        images: [],
       },
     ],
   },
@@ -243,9 +267,7 @@ const work: Work = {
   path: "/work",
   label: "Projetos",
   title: `Projetos – ${person.name}`,
-  description: `Projetos de desenvolvimento por ${person.name}`,
-  // Create new project pages by adding a new .mdx file to app/blog/posts
-  // All projects will be listed on the /home and /work routes
+  description: `Projetos de desenvolvimento full stack por ${person.name} — frontend, backend e arquitetura de sistemas.`,
 };
 
 const gallery: Gallery = {
